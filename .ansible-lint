@@ -1,6 +1,6 @@
 ---
 skip_list:
-  - '106'
-  - '401'
-  - 'schema'
+  - "106"
+  - "401"
+  - schema
   - command-instead-of-module

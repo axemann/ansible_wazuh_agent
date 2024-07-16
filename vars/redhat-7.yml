@@ -1,2 +1,2 @@
 ---
-wazuh_agent_profile: "rhel, rhel7, rhel7.9"
+wazuh_agent_profile: rhel, rhel7, rhel7.9

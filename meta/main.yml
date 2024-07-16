@@ -2,31 +2,31 @@
 galaxy_info:
   author: lotusnoir
   role_name: apps_wazuh_agent
-  description: "Install and configure wazuh_agent"
-  license: "Apache License, Version 2.0"
+  description: Install and configure wazuh_agent
+  license: Apache License, Version 2.0
   min_ansible_version: "2.8"
 
   platforms:
-    - name: "Ubuntu"
+    - name: Ubuntu
       versions:
-        - "focal"
-        - "bionic"
-        - "jammy"
-        - "noble"
-    - name: "Debian"
+        - focal
+        - bionic
+        - jammy
+        - noble
+    - name: Debian
       versions:
-        - "buster"
-        - "bullseye"
-        - "bookworm"
-    - name: "Rocky"
-      versions:
-        - "8"
-        - "9"
-    - name: "OracleLinux"
+        - buster
+        - bullseye
+        - bookworm
+    - name: Rocky
       versions:
         - "8"
         - "9"
-    - name: "EL"
+    - name: OracleLinux
+      versions:
+        - "8"
+        - "9"
+    - name: EL
       versions:
         - "8"
         - "9"

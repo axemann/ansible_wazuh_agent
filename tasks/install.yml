@@ -1,8 +1,8 @@
 ---
-- name: "RedHat | Install wazuh-agent"
-  ansible.builtin.include_tasks: "setup-{{ ansible_os_family | lower }}.yml"
+- name: RedHat | Install wazuh-agent
+  ansible.builtin.include_tasks: setup-{{ ansible_os_family | lower }}.yml
 
-- name: "Start wazuh-agent"
+- name: Start wazuh-agent
   ansible.builtin.service:
     name: wazuh-agent
     state: started

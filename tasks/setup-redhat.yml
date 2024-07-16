@@ -1,10 +1,10 @@
 ---
-- name: "Redhat | Import a key from a url"
+- name: Redhat | Import a key from a url
   ansible.builtin.rpm_key:
     state: present
     key: https://packages.wazuh.com/key/GPG-KEY-WAZUH
 
-- name: "Redhat | Copy repo informations"
+- name: Redhat | Copy repo informations
   ansible.builtin.copy:
     dest: /etc/yum.repos.d/wazuh.repo
     content: |
@@ -15,11 +15,11 @@
       name=Wazuh repository
       baseurl=https://packages.wazuh.com/{{ wazuh_version }}/yum/
       protect=1
-    mode: '0644'
+    mode: "0644"
 
-- name: "Redhat | Uninstall wazuh-agent package"
-  ansible.builtin.yum:
-    name: "wazuh-agent"
+- name: Redhat | Uninstall wazuh-agent package
+  ansible.builtin.dnf:
+    name: wazuh-agent
     state: absent
   register: pkg_result
   retries: 12
@@ -27,14 +27,14 @@
   until: pkg_result is success
   when: wazuh_agent_reinstall|bool
 
-- name: "Redhat | Delete configuration folder"
+- name: Redhat | Delete configuration folder
   ansible.builtin.file:
-    path: "/var/ossec"
+    path: /var/ossec
     state: absent
   when: wazuh_agent_reinstall|bool
 
-- name: "Redhat | Install wazuh-agent package"
-  ansible.builtin.yum:
+- name: Redhat | Install wazuh-agent package
+  ansible.builtin.dnf:
     name: wazuh-agent
     state: present
   register: pkg_result
@@ -58,8 +58,8 @@
     ENROLLMENT_DELAY: "{{ wazuh_enrollment_delay }}"
   when: not wazuh_agent_dl_only | bool
 
-- name: "Redhat | Install yum-downloadonly"
-  ansible.builtin.yum:
+- name: Redhat | Install yum-downloadonly
+  ansible.builtin.dnf:
     name: yum-downloadonly
     state: present
   register: pkg_result
@@ -68,7 +68,7 @@
   until: pkg_result is success
   when: wazuh_agent_dl_only | bool
 
-- name: "Redhat | Download only wazuh-agent package"
+- name: Redhat | Download only wazuh-agent package
   ansible.builtin.command: yum install --downloadonly wazuh-agent
   changed_when: false
   when: wazuh_agent_dl_only | bool

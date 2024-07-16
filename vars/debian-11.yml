@@ -1,2 +1,2 @@
 ---
-wazuh_agent_profile: "debian, debian11"
+wazuh_agent_profile: debian, debian11

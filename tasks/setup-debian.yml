@@ -1,45 +1,52 @@
 ---
-- name: "Debian | Install gnupg"
+- name: Debian | Install gnupg
   ansible.builtin.package:
-    name: "gnupg"
+    name: gnupg
     state: present
   register: pkg_result
   retries: 12
   delay: 10
   until: pkg_result is success
 
-- name: "Debian | Remove old wazuh apt signing key"
+- name: Debian | Remove old wazuh apt signing key
   ansible.builtin.apt_key:
     url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
     keyring: /etc/apt/trusted.gpg
     state: absent
   when: wazuh_repository is not defined
 
-- name: "Debian | Add wazuh apt signing key"
+- name: Debian | Remove old repo from apt list
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.wazuh.com/{{ wazuh_version }}/apt/ stable main
+    state: absent
+  when: wazuh_repository is not defined
+
+- name: Debian | Add wazuh apt signing key
   ansible.builtin.get_url:
     url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
     dest: /etc/apt/trusted.gpg.d/wazuh.asc
-    mode: '0644'
+    mode: "0644"
     force: true
   when: wazuh_repository is not defined
 
-- name: "Debian | Add wazuh repo to apt list"
+- name: Debian | Add wazuh repo to apt list
   ansible.builtin.apt_repository:
-    repo: "deb https://packages.wazuh.com/{{ wazuh_version }}/apt/ stable main"
+    repo: deb [signed-by=/etc/apt/trusted.gpg.d/wazuh.asc] 
+      https://packages.wazuh.com/{{ wazuh_version }}/apt/ stable main
     state: present
     filename: wazuh
   when: wazuh_repository is not defined
 
-- name: "Debian | Add wazuh repo to apt list"
+- name: Debian | Add wazuh repo to apt list
   ansible.builtin.apt_repository:
     repo: "{{ wazuh_repository }}"
     state: present
     filename: wazuh
   when: wazuh_repository is defined and wazuh_repository|length > 0
 
-- name: "Debian | Uninstall wazuh-agent package"
+- name: Debian | Uninstall wazuh-agent package
   ansible.builtin.apt:
-    name: "wazuh-agent"
+    name: wazuh-agent
     state: absent
     purge: true
   register: pkg_result
@@ -48,22 +55,22 @@
   until: pkg_result is success
   when: wazuh_agent_reinstall|bool
 
-- name: "Debian | Delete configuration folder"
+- name: Debian | Delete configuration folder
   ansible.builtin.file:
-    path: "/var/ossec"
+    path: /var/ossec
     state: absent
   when: wazuh_agent_reinstall|bool
 
-- name: "Debian | Download only wazuh-agent package"
+- name: Debian | Download only wazuh-agent package
   ansible.builtin.command: apt install --download-only wazuh-agent
   changed_when: false
   when: wazuh_agent_dl_only|bool
 
-- name: "Debian | Install wazuh-agent package"
+- name: Debian | Install wazuh-agent package
   ansible.builtin.package:
-    name: "wazuh-agent"
+    name: wazuh-agent
     state: present
-    update_cache: 'yes'
+    update_cache: "yes"
   register: pkg_result
   retries: 12
   delay: 10

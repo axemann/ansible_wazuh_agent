@@ -11,23 +11,23 @@ scenario:
     - prepare
     - converge
     - idempotence
-    #- verify
+    # - verify
     - destroy
 platforms:
   - name: apps-wazuh-agent-ubuntu20
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu20
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
-    capabilities: ['NET_ADMIN']
+    capabilities: [NET_ADMIN]
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
   - name: apps-wazuh-agent-ubuntu18
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu18
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
-    capabilities: ['NET_ADMIN']
+    capabilities: [NET_ADMIN]
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
@@ -35,7 +35,7 @@ platforms:
   - name: apps-wazuh-agent-ubuntu22
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu22
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -44,14 +44,14 @@ platforms:
   - name: apps-wazuh-agent-debian10
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian10
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
   - name: apps-wazuh-agent-debian11
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian11
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -60,7 +60,7 @@ platforms:
   - name: apps-wazuh-agent-debian12
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian12
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -69,7 +69,7 @@ platforms:
   - name: apps-wazuh-agent-rocky8
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:rocky8
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -78,7 +78,7 @@ platforms:
   - name: apps-wazuh-agent-rocky9
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:rocky9
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -87,7 +87,7 @@ platforms:
   - name: apps-wazuh-agent-oraclelinux8
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:oraclelinux8
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -96,7 +96,7 @@ platforms:
   - name: apps-wazuh-agent-oraclelinux9
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:oraclelinux9
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    docker_host: ${DOCKER_HOST:-unix://var/run/docker.sock}
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -114,9 +114,9 @@ provisioner:
         ansible_python_interpreter: /usr/bin/python3
     host_vars:
       bullseye:
-        ansible_python_interpreter: "/usr/bin/python3.9"
+        ansible_python_interpreter: /usr/bin/python3.9
       bookworm:
-        ansible_python_interpreter: "/usr/bin/python3.9"
+        ansible_python_interpreter: /usr/bin/python3.9
 
 verifier:
   name: ansible
