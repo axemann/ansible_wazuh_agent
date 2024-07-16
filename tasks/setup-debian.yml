@@ -15,11 +15,11 @@
     state: absent
   when: wazuh_repository is not defined
 
-- name: Debian | Remove old repo from apt list
-  ansible.builtin.apt_repository:
-    repo: deb https://packages.wazuh.com/{{ wazuh_version }}/apt/ stable main
-    state: absent
-  when: wazuh_repository is not defined
+# - name: Debian | Remove old repo from apt list
+#   ansible.builtin.apt_repository:
+#     repo: deb https://packages.wazuh.com/{{ wazuh_version }}/apt/ stable main
+#     state: absent
+#   when: wazuh_repository is not defined
 
 - name: Debian | Add wazuh apt signing key
   ansible.builtin.get_url:
@@ -31,8 +31,7 @@
 
 - name: Debian | Add wazuh repo to apt list
   ansible.builtin.apt_repository:
-    repo: deb [signed-by=/etc/apt/trusted.gpg.d/wazuh.asc] 
-      https://packages.wazuh.com/{{ wazuh_version }}/apt/ stable main
+    repo: deb https://packages.wazuh.com/{{ wazuh_version }}/apt/ stable main
     state: present
     filename: wazuh
   when: wazuh_repository is not defined
